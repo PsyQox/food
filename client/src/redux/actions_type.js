@@ -1,0 +1,2 @@
+export const RECIPES_GET = 'RECIPES_GET';
+export const ORDER_RECIPES = 'ORDER_RECIPES'

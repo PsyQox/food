@@ -1,4 +1,4 @@
-import { RECIPES_GET,ORDER_RECIPES} from "./actions_type";
+import { RECIPES_GET,ORDER_RECIPES,FILTER_RECIPES,DIETS_GET} from "./actions_type";
 import axios from "axios";
 
 export const getRecipes = (name)=>{
@@ -22,9 +22,26 @@ export const getRecipes = (name)=>{
     }
 }
 
+export const getDiets =()=>{
+    const endpoint = 'http://localhost:3001/diets/' 
+    return async (dispatch)=>{
+        const {data} = await axios.get(`${endpoint}`)
+        return dispatch({
+            type:DIETS_GET,
+            payload:data
+        })
+    }
+}
 export const orderRecipes = (orden) =>{
     return{
         type:ORDER_RECIPES,
         payload: orden
+    }
+}
+
+export const filterRecipes = (filterType)=>{
+    return{
+        type:FILTER_RECIPES,
+        payload: filterType
     }
 }

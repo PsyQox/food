@@ -1,14 +1,20 @@
 require('dotenv').config();
 const axios = require('axios');
 const {API_KEY} = process.env;
+const {Tbl_recipe} = require('../db')
 
 const getRecipeId = async (id)=>{ 
     if(!id) throw new Error("No se mando el id")
-    id = "12"
-    id = "sakjdhas-asdas-dasd"
+    // Expresion regular del uuid 
+    const regexUUID = RegExp(/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/)
 
-    const recipe = await axios.get(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}`)
-    return recipe.data
+    if (regexUUID.test(id)) {
+        const recipe = await Tbl_recipe.findOne({where:{id:id}})
+        return recipe
+    }else{
+        const recipe = await axios.get(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}`)
+        return recipe.data  
+    }
 }
 
 module.exports=getRecipeId

@@ -1,2 +1,4 @@
 export const RECIPES_GET = 'RECIPES_GET';
 export const ORDER_RECIPES = 'ORDER_RECIPES'
+export const FILTER_RECIPES = 'FILTER_RECIPES'
+export const DIETS_GET = 'DIETS_GET'

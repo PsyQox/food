@@ -32,8 +32,8 @@ const { Tbl_recipe,Tbl_diet } = sequelize.models;
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
-Tbl_diet.hasMany(Tbl_recipe) //{throw:"tbl_redi"}
-Tbl_recipe.belongsToMany(Tbl_diet,{through:"tbl_redi",timestamps:false})
+Tbl_recipe.belongsToMany(Tbl_diet,{ through:"tbl_redi", timestamps:false })
+Tbl_diet.belongsToMany(Tbl_recipe,{ through:"tbl_redi", timestamps:false}) //{throw:"tbl_redi"}
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

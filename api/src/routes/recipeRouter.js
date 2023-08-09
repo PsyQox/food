@@ -27,9 +27,9 @@ recipeRouter.get("/", async (req,res)=>{
 
 recipeRouter.post("/", async (req,res)=>{
     try {
-        const {name,image,summary,healthscore,steptostep,tblDietId} = req.body
-        const recipes  = await postCreateRecipte({name,image,summary,healthscore,steptostep,tblDietId})
-        res.status(200).json(recipes)    
+        const {title,image,summary,healthscore,steptostep,diet} = req.body
+        const recipes  = await postCreateRecipte({title,image,summary,healthscore,steptostep,diet})
+        res.status(200).json(recipes)
     } catch (error) {
         res.status(404).json(error.message)
     }

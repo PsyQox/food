@@ -13,7 +13,7 @@ const Card =(props)=>{
             {props.diets.map((diet)=>{
                 return <p key={diet}>{diet}</p>   
             })}
-            <Link to="/detail">
+            <Link to={`/detail/${props.id}`}>
                 <button key='detalle'>Detalle</button>
             </Link>
         </div>

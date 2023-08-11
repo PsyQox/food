@@ -15,14 +15,14 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     image:{
-      type:DataTypes.STRING,
+      type:DataTypes.STRING(2000),
       allowNull: false,
     },
     summary:{
       type:DataTypes.TEXT,
       allowNull:false
     },
-    healthscore:{
+    healthScore:{
       type:DataTypes.STRING,
       allowNull:false
     },

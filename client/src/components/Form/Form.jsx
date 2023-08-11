@@ -1,11 +1,11 @@
 import React,{ useEffect } from "react";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux"; 
 import axios from "axios";
 import validation from "./validation";
 
 const Form = ()=>{
     const [diets, setDiets] = useState([])
+    const [checked, setChecked] = useState({})
     const [errors, setErrors] = useState("")
     const [form, setForm] = useState({
         title:"",
@@ -17,8 +17,19 @@ const Form = ()=>{
     })
 
     useEffect( async ()=>{
-        const response = await axios(`http://localhost:3001/diets/`)
-        setDiets(response.data)
+        try {
+            if (diets.length <= 0) {
+                const response = await axios(`http://localhost:3001/diets/`)
+                setDiets(response.data)    
+            }
+        } catch (error) {
+            if (error.response) {
+                alert(error.response.data);
+            } else {
+                alert("Ocurrió un error en la solicitud. Por favor, intenta nuevamente.");
+            }
+        }
+        
     },[])
 
     const handleInput = (event)=>{
@@ -30,17 +41,41 @@ const Form = ()=>{
         if (!form.diet.includes(event.target.value)) {
             setForm({...form, diet:[...form.diet,event.target.value]})
             setErrors(validation({...form, diet:[...form.diet,event.target.value]}))
+            setChecked({...checked,[event.target.name]:true})
         }else{
             setForm({...form, diet:[...form.diet.filter(diet=> diet !== event.target.value)]})
             setErrors(validation({...form, diet:[...form.diet.filter(diet=> diet !== event.target.value)]}))
+            setChecked({...checked,[event.target.name]:false})
         }
     }
 
     const handleForm = async (event)=>{
         event.preventDefault()
         if(Object.keys(errors) <= 0){
-            await axios.post(`http://localhost:3001/recipes/`,form)
-            console.log("se creo bien");
+            try {
+                const response = await axios.post(`http://localhost:3001/recipes/`,form)
+                if (!response.data[1]) {
+                    alert("No se pueden crear registros repetidos")
+                }else{
+                    alert(`El registro ${response.data[0].title} se ha creado exitosamente`)
+                    setForm({
+                        title:"",
+                        image:"",
+                        summary:"",
+                        healthscore:"",
+                        steptostep:"",
+                        diet:[]
+                    })
+                    setChecked({})
+                }
+            } catch (error) {
+                if (error.response) {
+                    alert(error.response.data);
+                } else {
+                    alert("Ocurrió un error en la solicitud. Por favor, intenta nuevamente.");
+                }
+            }
+            
         }else{
             alert("Tienes errores, primero corrigelos")
         }
@@ -77,7 +112,7 @@ const Form = ()=>{
                 {diets.map((diet)=>{    
                     return <div key={diet.id}>
                         <label htmlFor={diet.name} key={diet.name}>
-                        <input key={diet.id} type="checkbox" name="diets" id={diet.id} value={diet.id} onClick={handleChecbox}/>
+                        <input key={diet.id} type="checkbox" checked={checked[diet.name]} name={diet.name} id={diet.id} value={diet.id} onClick={handleChecbox}/>
                         {diet.name}
                     </label>
                     </div> 

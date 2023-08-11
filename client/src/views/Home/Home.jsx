@@ -2,7 +2,7 @@ import React,{useState,useEffect} from "react";
 import Cards from '../../components/Cards/Cards'
 import Pagination from "../../components/Pagination/Pagination";
 import { useDispatch, useSelector } from "react-redux";
-import { getRecipes, orderRecipes, getDiets, filterRecipes} from "../../redux/actions";
+import { getRecipes, orderRecipes, getDiets, filterRecipes, filterBdPi, getAllRecipes} from "../../redux/actions";
 
 const Home = ()=>{  
 
@@ -13,8 +13,16 @@ const Home = ()=>{
     const diets = useSelector(state => state.diets)
     
     useEffect(()=>{
-        dispatch(getRecipes())
-        dispatch(getDiets())
+        try {
+            dispatch(getDiets())
+            dispatch(getRecipes())            
+        } catch (error) {
+            if (error.response) {
+                alert(error.response.data);
+            } else {
+                alert("Ocurrió un error en la solicitud. Por favor, intenta nuevamente.");
+            }
+        }
     },[])
 
     const numberOfLastPage = currentPage * recipesPerPage;
@@ -29,6 +37,14 @@ const Home = ()=>{
 
     const onChangeFilter = (event)=>{
         dispatch(filterRecipes(event.target.value))
+    }
+
+    const onChangeOrderDbApi = (event)=>{
+        dispatch(filterBdPi(event.target.value))
+    }
+
+    const onClickAll = ()=>{
+        dispatch(getAllRecipes())
     }
 
     return(
@@ -55,6 +71,17 @@ const Home = ()=>{
                         <option value="Z-A">Z-A</option>
                     </select>
                 </div>
+                <div>
+                    <label htmlFor="">Filtrar BD o API</label>
+                    <br />
+                    <select name="" id="" onChange={onChangeOrderDbApi}>
+                        <option value="">Seleccionar</option>
+
+                        <option value="api">Api</option>
+                        <option value="db">Base de datos</option>
+                    </select>
+                </div>
+                <button onClick={onClickAll}>Todos</button>
             </div>
             <h1>Recipes</h1>
             <Cards recipes={currentRecipes}/>

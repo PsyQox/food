@@ -11,7 +11,15 @@ const SearchBar = (props)=>{
     }
 
     function onhandleClick(){
-        props.getRecipes(search)
+        try {
+            props.getRecipes(search)
+        } catch (error) {
+            if (error.response) {
+                alert(error.response.data);
+            } else {
+                alert("Ocurrió un error en la solicitud. Por favor, intenta nuevamente.");
+            }
+        }
     }
 
     

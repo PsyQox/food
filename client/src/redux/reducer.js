@@ -1,4 +1,4 @@
-import { RECIPES_GET,ORDER_RECIPES,FILTER_RECIPES,DIETS_GET } from "./actions_type"
+import { RECIPES_GET,ORDER_RECIPES,FILTER_RECIPES,DIETS_GET,FILTER_DB_API,GET_ALL_RECIPES } from "./actions_type"
 
 const initialState = {
     recipes:[],
@@ -7,6 +7,7 @@ const initialState = {
 }
 
 const rootReducer = (state = initialState, action)=>{
+    const regexUUID = RegExp(/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/)
     switch(action.type){
         case RECIPES_GET:
             return{...state,recipes:action.payload, recipesCopy:action.payload}
@@ -47,11 +48,29 @@ const rootReducer = (state = initialState, action)=>{
         case FILTER_RECIPES:
             let recipesFilter = [...state.recipesCopy] 
              recipesFilter = recipesFilter.filter((recipe)=>{
-                return recipe.diets.includes(action.payload)
+                if (regexUUID.test(recipe.id)) {
+                    // return recipe.tbl_diets[i].name.incudes(action.payload)
+                    return recipe.tbl_diets.some((diet) => diet.name === action.payload)
+                }else{
+                    return recipe.diets.includes(action.payload)
+                }
             })
             return{
                 ...state, recipes:recipesFilter
             }
+        case FILTER_DB_API:
+            let recipesFilterDB = [...state.recipesCopy] 
+            
+            action.payload === "db" ? recipesFilterDB = recipesFilterDB.filter((recipe)=> regexUUID.test(recipe.id)):recipesFilterDB = recipesFilterDB.filter((recipe)=> !regexUUID.test(recipe.id)) 
+            return{
+                ...state,recipes:recipesFilterDB
+            }
+
+        case GET_ALL_RECIPES:
+            return{
+                ...state, recipes: [...state.recipesCopy]
+            }
+        
         default:
             return {...state}
     }

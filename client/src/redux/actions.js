@@ -1,4 +1,4 @@
-import { RECIPES_GET,ORDER_RECIPES,FILTER_RECIPES,DIETS_GET} from "./actions_type";
+import { RECIPES_GET,ORDER_RECIPES,FILTER_RECIPES,DIETS_GET,FILTER_DB_API,GET_ALL_RECIPES} from "./actions_type";
 import axios from "axios";
 
 export const getRecipes = (name)=>{
@@ -43,5 +43,18 @@ export const filterRecipes = (filterType)=>{
     return{
         type:FILTER_RECIPES,
         payload: filterType
+    }
+}
+
+export const filterBdPi = (filterType)=>{
+    return{
+        type: FILTER_DB_API,
+        payload: filterType
+    }
+}
+
+export const getAllRecipes = ()=>{
+    return{
+        type: GET_ALL_RECIPES
     }
 }

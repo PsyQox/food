@@ -7,7 +7,7 @@ const postCreateRecipte = async (recipe)=>{
     const recipeCreate = await Tbl_recipe.findOrCreate({where: {title:title},defaults:{
         image:image,
         summary:summary,
-        healthscore: healthscore,
+        healthScore: healthscore,
         steptostep: steptostep, //Array JSON
     }})
 
@@ -26,7 +26,7 @@ const postCreateRecipte = async (recipe)=>{
     const recipes = await Tbl_recipe.findAll({include: Tbl_diet})
     // const recipes = await Tbl_diet.findOne({where:{name:'primal'}, include: Tbl_recipe})
     // const recipes = await Tbl_recipe.findAll()
-    return recipes
+    return recipeCreate
 } 
 
 module.exports = postCreateRecipte

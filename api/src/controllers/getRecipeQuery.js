@@ -8,7 +8,7 @@ const {Op} = require('sequelize')
 
 const getRecipeQuery = async (name)=>{
     if (!name){
-        // const recipes = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=100`)
+        // const {data} = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=100&addRecipeInformation=true`)
         // return recipes.data.results
         const recipeDB = await Tbl_recipe.findAll({include: Tbl_diet})
 

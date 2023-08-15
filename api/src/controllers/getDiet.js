@@ -1,7 +1,7 @@
 require('dotenv').config()
 const {API_KEY} = process.env
 const axios = require('axios')
-const data = require('../utils/foodComplexSearch.json')
+// const data = require('../utils/foodComplexSearch.json')
 const {Tbl_diet} = require('../db')
 
 const getDiet = async ()=>{
@@ -9,7 +9,7 @@ const getDiet = async ()=>{
     
     if (dietBD.length <= 0) {
         const diets = new Set()
-        // const response = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=100&addRecipeInformation=true`)
+        const {data} = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=100&addRecipeInformation=true`)
 
         data.results.forEach(recipe =>{
             recipe.diets.forEach((diet) =>{

@@ -2,13 +2,13 @@ const {Tbl_recipe, Tbl_diet} = require('../db')
 
 const postCreateRecipte = async (recipe)=>{ 
     const {title,image,summary,healthscore,steptostep,diet} = recipe
-    if (!title || !image || !summary || !healthscore || !steptostep || !diet) throw new Error("Faltan datos")
+    if (!title || !image || !summary || !healthscore || !steptostep || !diet) throw new Error("Missing data")
 
     const recipeCreate = await Tbl_recipe.findOrCreate({where: {title:title},defaults:{
         image:image,
         summary:summary,
         healthScore: healthscore,
-        steptostep: steptostep, //Array JSON
+        steptostep: steptostep,
     }})
 
     // const findRecipe = await Tbl_recipe.findOne({where:{id:"28dd2d86-5ee3-4eee-aca3-3c7850637bff"}}) 

@@ -1,7 +1,8 @@
 import React,{ useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
-import validation from "./validation";
+import validation from "./validation"; 
+import style from './Form.module.css'
 
 const Form = ()=>{
     const [diets, setDiets] = useState([])
@@ -26,7 +27,7 @@ const Form = ()=>{
             if (error.response) {
                 alert(error.response.data);
             } else {
-                alert("Ocurrió un error en la solicitud. Por favor, intenta nuevamente.");
+                alert("An error occurred in the request.");
             }
         }
         
@@ -55,9 +56,9 @@ const Form = ()=>{
             try {
                 const response = await axios.post(`http://localhost:3001/recipes/`,form)
                 if (!response.data[1]) {
-                    alert("No se pueden crear registros repetidos")
+                    alert("Cannot create duplicate records")
                 }else{
-                    alert(`El registro ${response.data[0].title} se ha creado exitosamente`)
+                    alert(`The recipe ${response.data[0].title} has been created successfully`)
                     setForm({
                         title:"",
                         image:"",
@@ -72,54 +73,57 @@ const Form = ()=>{
                 if (error.response) {
                     alert(error.response.data);
                 } else {
-                    alert("Ocurrió un error en la solicitud. Por favor, intenta nuevamente.");
+                    alert("An error occurred in the request. Please try again.");
                 }
             }
             
         }else{
-            alert("Tienes errores, primero corrigelos")
+            alert("First fix the mistakes")
         }
     }
 
   
 
     return(
-        <div>
-            <h1>Formulario</h1>
-            <form action="" onSubmit={handleForm}>
-                <label htmlFor="">Nombre</label> 
-                <input type="text" name="title" onChange={handleInput} value={form.title}/>
-                {errors.title ? <span style={{color:"red"}}>{errors.title}</span>:null}
+        <div className={style.containerForm}>
+            <h1 className={style.title}>Form</h1>
+            <form className={style.form} action="" onSubmit={handleForm}>
+                <label className={style.label} htmlFor="">Name</label> 
+                <input className={style.inputText} type="text" name="title" onChange={handleInput} value={form.title}/>
+                {errors.title ? <span className={style.error}>{errors.title}</span>:null}
                 <br />
-                <label htmlFor="">Imagen</label>
-                <input type="text" name="image" onChange={handleInput} value={form.image}/>
-                {errors.image ? <span style={{color:"red"}}>{errors.image}</span>:null}
+                <label className={style.label} htmlFor="">Image</label>
+                <input className={style.inputText} type="text" name="image" onChange={handleInput} value={form.image}/>
+                {errors.image ? <span className={style.error}>{errors.image}</span>:null}
                 <br />
-                <label htmlFor="">Resumen del plato</label>
-                <input type="text" name="summary" onChange={handleInput} value={form.summary}/>
-                {errors.summary ? <span style={{color:"red"}}>{errors.summary}</span>:null}
+                <label className={style.label} htmlFor="">Summary</label>
+                <textarea className={style.inputTextArea} rows="8" name="summary" onChange={handleInput} value={form.summary}></textarea>
+                {errors.summary ? <span className={style.error}>{errors.summary}</span>:null}
                 <br />
-                <label htmlFor="">Nivel de comida saludabe</label>
-                <input type="number" name="healthscore" onChange={handleInput} value={form.healthscore}/>
-                {errors.healthscore ? <span style={{color:"red"}}>{errors.healthscore}</span>:null}
+                <label className={style.label} htmlFor="">Health score</label>
+                <input className={style.inputText} type="number" name="healthscore" onChange={handleInput} value={form.healthscore}/>
+                {errors.healthscore ? <span className={style.error}>{errors.healthscore}</span>:null}
                 <br />
-                <label htmlFor="">Paso a paso</label>
-                <input type="text" name="steptostep" onChange={handleInput} value={form.steptostep}/>
-                {errors.steptostep ? <span style={{color:"red"}}>{errors.steptostep}</span>:null}
+                <label className={style.label} htmlFor="">Step by step</label>
+                <input className={style.inputText} type="text" name="steptostep" onChange={handleInput} value={form.steptostep}/>
+                {errors.steptostep ? <span className={style.error}>{errors.steptostep}</span>:null}
                 <br />
                 
-                <label htmlFor="">Tipos de dieta</label>
-                {diets.map((diet)=>{    
-                    return <div key={diet.id}>
-                        <label htmlFor={diet.name} key={diet.name}>
-                        <input key={diet.id} type="checkbox" checked={checked[diet.name]} name={diet.name} id={diet.id} value={diet.id} onClick={handleChecbox}/>
-                        {diet.name}
-                    </label>
-                    </div> 
-                })}
-                {errors.diet ? <span style={{color:"red"}}>{errors.diet}</span>:null}
+                <label className={style.label} htmlFor="">Type of diet</label>
+                <div className={style.divDietsTypes}>
+                    {diets.map((diet)=>{    
+                        return <div className={style.divDietType} key={diet.id}>
+                            <label htmlFor={diet.name} key={diet.name}>
+                            <input key={diet.id} type="checkbox" checked={checked[diet.name]} name={diet.name} id={diet.id} value={diet.id} onClick={handleChecbox}/>
+                            {diet.name}
+                        </label>
+                        </div> 
+                    })}
+                </div>
+                
+                {errors.diet ? <span className={style.error}>{errors.diet}</span>:null}
                 <br />
-                <button>Crear Receta</button>
+                <button className={style.button}>Create recipe</button>
             </form>
         </div>
     )

@@ -4,7 +4,7 @@ const {API_KEY} = process.env;
 const {Tbl_recipe, Tbl_diet} = require('../db')
 
 const getRecipeId = async (id)=>{ 
-    if(!id) throw new Error("No se mando el id")
+    if(!id) throw new Error("You did not send the ID")
     // Expresion regular del uuid 
     const regexUUID = RegExp(/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/)
 

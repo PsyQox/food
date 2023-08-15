@@ -54,7 +54,12 @@ export const filterBdPi = (filterType)=>{
 }
 
 export const getAllRecipes = ()=>{
-    return{
-        type: GET_ALL_RECIPES
+    const endpoint = 'http://localhost:3001/recipes/'
+    return async (dispatch)=>{
+        const {data} = await axios.get(`${endpoint}`)
+        return dispatch({
+            type: GET_ALL_RECIPES,
+            payload:data
+        })    
     }
 }

@@ -3,6 +3,7 @@ import Cards from '../../components/Cards/Cards'
 import Pagination from "../../components/Pagination/Pagination";
 import { useDispatch, useSelector } from "react-redux";
 import { getRecipes, orderRecipes, getDiets, filterRecipes, filterBdPi, getAllRecipes} from "../../redux/actions";
+import style from './Home.module.css'
 
 const Home = ()=>{  
 
@@ -37,53 +38,62 @@ const Home = ()=>{
 
     const onChangeFilter = (event)=>{
         dispatch(filterRecipes(event.target.value))
-    }
+    } 
 
     const onChangeOrderDbApi = (event)=>{
         dispatch(filterBdPi(event.target.value))
     }
 
     const onClickAll = ()=>{
-        dispatch(getAllRecipes())
+        try {
+            dispatch(getAllRecipes())
+        } catch (error) {
+            if (error.response) {
+                alert(error.response.data);
+            } else {
+                alert("Ocurrió un error en la solicitud. Por favor, intenta nuevamente.");
+            }
+        }
     }
 
     return(
         <div>
-            <div>
-                <div>
-                    <label htmlFor="">Tipo de dieta</label>
+            <div className={style.selectsContainer}>
+                <div className={style.selectContainer}>
+                    <label htmlFor="">Type of diet</label>
                     <br />
-                    <select name="" id="" onChange={onChangeFilter}>
-                        <option value="">Seleccionar</option>
+                    <select className={style.select} name="" id="" onChange={onChangeFilter}>
+                        <option value="">Select...</option>
                         {diets?.map((diet)=>{
                             return <option key={diet.id} value={diet.name}>{diet.name}</option>
                         })}
                     </select>    
                 </div>
-                <div>
-                    <label htmlFor="">Ordenar</label>
+                <div className={style.selectContainer}>
+                    <label htmlFor="">Order</label>
                     <br />
-                    <select name="" id="" onChange={onChangeOrder}>
-                        <option value="">Seleccionar</option>
-                        <option value="A">Health Score Ascendente</option>
-                        <option value="D">Health Score Descendente</option>
+                    <select className={style.select} name="" id="" onChange={onChangeOrder}>
+                        <option value="">Select...</option>
+                        <option value="A">Ascending Health Score</option>
+                        <option value="D">Descending Health Score</option>
                         <option value="A-Z">A-Z</option>
                         <option value="Z-A">Z-A</option>
                     </select>
                 </div>
-                <div>
-                    <label htmlFor="">Filtrar BD o API</label>
+                <div className={style.selectContainer}>
+                    <label htmlFor="">Filter by DB or API</label>
                     <br />
-                    <select name="" id="" onChange={onChangeOrderDbApi}>
-                        <option value="">Seleccionar</option>
+                    <select className={style.select} name="" id="" onChange={onChangeOrderDbApi}>
+                        <option value="">Select...</option>
 
-                        <option value="api">Api</option>
-                        <option value="db">Base de datos</option>
+                        <option value="api">API</option>
+                        <option value="db">DB</option>
                     </select>
                 </div>
-                <button onClick={onClickAll}>Todos</button>
+                <button className={style.button} onClick={onClickAll}>All</button>
             </div>
             <h1>Recipes</h1>
+            <Pagination recipesPerPage={recipesPerPage} totalRecipes={recipes.length} paginate={paginate} page={currentPage}/>
             <Cards recipes={currentRecipes}/>
             <Pagination recipesPerPage={recipesPerPage} totalRecipes={recipes.length} paginate={paginate} page={currentPage}/>
         </div>

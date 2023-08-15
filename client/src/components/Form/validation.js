@@ -8,28 +8,42 @@ const validation=(data)=>{
     let diet = data.diet
 
     const regexNumber = RegExp(/^[0-9]+$/)
+    const regexURL =  RegExp(/^(ftp|http|https):\/\/[^ "]+$/)
+    const regexLetters = RegExp(/^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/)
 
-    if (!title) {
-        incorrect.title = "El titulo no puede estar vacio"
+    if (data.title) {
+        if (!title){
+            incorrect.title = "The name cannot be empty."
+        }else if(!regexLetters.test(title)){
+            incorrect.title = "Only letters"
+        }
     }
-     if (!image) {
-        incorrect.image = "La imagen no puede estar vacia"
+    if (data.image) {
+        if(!image){
+            incorrect.image = "The image cannot be empty."
+        }else if(!regexURL.test(image)) {
+            incorrect.image = "It has to have URL format."
+        }
     }
-     if (!summary) {
-        incorrect.summary = "El resumen no puede estar vacío"
+    if (data.summary) {
+        if (!summary) incorrect.summary = "The summary cannot be empty."
+           
     }
-     if (!steptostep) {
-        incorrect.steptostep = "El paso a paso no puede estar vacio"
-    }
-
-     if (!regexNumber.test(healthscore)) {
-       incorrect.healthscore = "Tiene que ser un numero" 
-    }else if(healthscore <= 0 || healthscore > 100){
-        incorrect.healthscore = "Tiene que ser mayor a 0 y menor a 100"
-    }
-
+    
+    if (data.steptostep) {
+        if (!steptostep) incorrect.steptostep = "The step by step cannot be empty."
+     }
+    
+     if (data.healthscore) {
+        if (!regexNumber.test(healthscore)) {
+            incorrect.healthscore = "Can only be number" 
+         }else if(healthscore <= 0 || healthscore > 100){
+             incorrect.healthscore = "The number has to be between 0 and 100."
+         }   
+     }
+     
     if (diet.length <= 0) {
-        incorrect.diet = "Tienes que seleccionar por lo menos 1"
+        incorrect.diet = "You have to select at least 1."
     }
     return incorrect
 }

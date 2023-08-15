@@ -7,7 +7,6 @@ const {Tbl_recipe,Tbl_diet} = require('../db')
 const {Op} = require('sequelize')
 
 const getRecipeQuery = async (name)=>{
-    // throw new Error("No se mando el nombre") 
     if (!name){
         // const recipes = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=100`)
         // return recipes.data.results

@@ -8,7 +8,7 @@ dietRouter.get("/", async (req,res) =>{
         const diets = await getDiet()
         res.status(200).json(diets)
     } catch (error) {
-        res.status(404).json(error.message)
+        res.status(500).json(error.message)
     }
     
 })

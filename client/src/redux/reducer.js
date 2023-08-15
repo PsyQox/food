@@ -49,7 +49,6 @@ const rootReducer = (state = initialState, action)=>{
             let recipesFilter = [...state.recipesCopy] 
              recipesFilter = recipesFilter.filter((recipe)=>{
                 if (regexUUID.test(recipe.id)) {
-                    // return recipe.tbl_diets[i].name.incudes(action.payload)
                     return recipe.tbl_diets.some((diet) => diet.name === action.payload)
                 }else{
                     return recipe.diets.includes(action.payload)
@@ -68,7 +67,7 @@ const rootReducer = (state = initialState, action)=>{
 
         case GET_ALL_RECIPES:
             return{
-                ...state, recipes: [...state.recipesCopy]
+                ...state, recipes: action.payload
             }
         
         default:

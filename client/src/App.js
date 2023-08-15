@@ -7,6 +7,8 @@ import Home from './views/Home/Home';
 import DetailPage from './views/DetailPage/DetailPage';
 import Navbar from './components/Navbar/Navbar';
 import Form from './components/Form/Form';
+import Error from './views/404/404';
+import Footer from './components/Footer/Footer';
 
 function App() {
   const location = useLocation();
@@ -19,7 +21,9 @@ function App() {
         <Route path='/home' element={<Home />}/>
         <Route path='/detail/:id' element={<DetailPage />}/>
         <Route path='/form' element={<Form />}/>
+        <Route path='*' element={<Error />}/>
       </Routes>
+      {location.pathname !== '/' && <Footer />}
     </div>
   );
 }

@@ -5,7 +5,6 @@ const data = require('../utils/foodComplexSearch.json')
 const {Tbl_diet} = require('../db')
 
 const getDiet = async ()=>{
-    // https://api.spoonacular.com/recipes/complexSearch?apiKey=aaaa100173004739b104d179ba111a93&number=100&addRecipeInformation=true
     const dietBD = await Tbl_diet.findAll()
     
     if (dietBD.length <= 0) {

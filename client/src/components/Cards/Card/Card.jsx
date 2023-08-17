@@ -9,7 +9,7 @@ const Card =(props)=>{
             <img src={props.image} alt="" width="380px" height="231"/>
             <h2 className={style.title}>{props.title}</h2>
             <h2 className={style.subtitle}>Health Score: {props.healthScore}</h2>
-            <h2 className={style.subtitle}>Type of diet:</h2>
+            <h2 className={style.subtitle}>Types of diet:</h2>
             <div className={style.containerDiets}>
                 {props.diets.map((diet)=>{
                     if (!regexUUID.test(props.id)) {

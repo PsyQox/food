@@ -105,7 +105,7 @@ const Form = ()=>{
                 {errors.healthscore ? <span className={style.error}>{errors.healthscore}</span>:null}
                 <br />
                 <label className={style.label} htmlFor="">Step by step</label>
-                <input className={style.inputText} type="text" name="steptostep" onChange={handleInput} value={form.steptostep}/>
+                <textarea className={style.inputTextArea} rows="8" type="text" name="steptostep" onChange={handleInput} value={form.steptostep}></textarea>
                 {errors.steptostep ? <span className={style.error}>{errors.steptostep}</span>:null}
                 <br />
                 

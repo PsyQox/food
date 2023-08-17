@@ -10,6 +10,7 @@ const validation=(data)=>{
     const regexNumber = RegExp(/^[0-9]+$/)
     const regexURL =  RegExp(/^(ftp|http|https):\/\/[^ "]+$/)
     const regexLetters = RegExp(/^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/)
+    const regexStep = RegExp(/^[A-Za-z0-9\sñÑáéíóúÁÉÍÓÚ,.!¡¿?']+$/g)
 
     if (data.title) {
         if (!title){
@@ -31,14 +32,18 @@ const validation=(data)=>{
     }
     
     if (data.steptostep) {
-        if (!steptostep) incorrect.steptostep = "The step by step cannot be empty."
+        if (!steptostep) {
+            incorrect.steptostep = "The step by step cannot be empty."
+        }else if (!regexStep.test(steptostep)) {
+            incorrect.steptostep = "Only numbers and letters"
+        }
      }
     
      if (data.healthscore) {
         if (!regexNumber.test(healthscore)) {
             incorrect.healthscore = "Can only be number" 
-         }else if(healthscore <= 0 || healthscore > 100){
-             incorrect.healthscore = "The number has to be between 0 and 100."
+         }else if(healthscore < 0 || healthscore > 100){
+             incorrect.healthscore = "Special characters are not allowed."
          }   
      }
      

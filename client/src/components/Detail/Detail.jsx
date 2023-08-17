@@ -30,13 +30,13 @@ const Detail =()=>{
                     <img className={style.img} src={detail.image} alt="" ></img>
                 </div>
                 <div className={style.containerData}>
-                    <h2>Resumen del plato</h2>
+                    <h2>Summary</h2>
                         <p>{detail.summary}</p>
-                    <h2>Nivel de comida saludable</h2>
+                    <h2>Health Score</h2>
                         <p>{detail.healthScore}</p>
-                    <h2>Paso a paso</h2>
+                    <h2>Step by step</h2>
                         {detail.steptostep}
-                    <h2>Tipos de dieta</h2>
+                    <h2>Types of diet</h2>
                         {detail.tbl_diets?.map((diet)=>{
                             return <button className={style.buttonTag} key={diet.id}>{diet.name}</button>
                         })}
@@ -52,17 +52,17 @@ const Detail =()=>{
                         <img className={style.img} src={detail.image} alt=""></img>
                     </div>
                     <div className={style.containerData}>
-                        <h2>Resumen del plato</h2>
+                        <h2>Summary</h2>
                         <div dangerouslySetInnerHTML={{__html:detail.summary}}></div>
-                        <h2>Nivel de comida saludable</h2>
+                        <h2>Health Score</h2>
                         <p>{detail.healthScore}</p>
-                        <h2>Paso a paso</h2>
+                        <h2>Step by step</h2>
                         {detail.analyzedInstructions?.map((instruction)=>{
                             return instruction.steps?.map(step=>{
                                 return <div><strong key={step.number}>{step.number}</strong> <p key={step.step}>{step.step}</p></div>
                             })
                         })}
-                        <h2>Tipos de dieta</h2>
+                        <h2>Types of diet</h2>
                         {detail.diets?.map((diet)=>{
                             return <button className={style.buttonTag} key={diet}>{diet}</button>
                         })}

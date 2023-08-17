@@ -2,7 +2,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-end;
-    background-color: #F0E3CA;
+    background-color: #ff8103;
     width: 100%;
 }
 
@@ -10,10 +10,12 @@
     text-align: center;
     padding: 16px 16px;
     border:none;
-    background-color: #F0E3CA;
+    background-color: #FF8303;
     cursor: pointer;
+    color: #F0E3CA; 
+    font-size: 16px;
 }
 .button:hover{
-    color: #F0E3CA;
-    background-color: #A35709;
+    color: #FF8303;
+    background-color: #F0E3CA;
 }

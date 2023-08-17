@@ -9,13 +9,14 @@ const SearchBar = (props)=>{
     const navigation = useNavigate()
 
     const onhandleChange = (event)=>{
-        setSearch(event.target.value)
+        setSearch(event.target.value) 
     }
 
     function onhandleClick(){
         try {
-            navigation("/home")
+             navigation("/home/"+search)
             props.getRecipes(search)
+            setSearch("")
         } catch (error) {
             if (error.response) {
                 alert(error.response.data);

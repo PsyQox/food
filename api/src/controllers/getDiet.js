@@ -1,7 +1,6 @@
 require('dotenv').config()
 const {API_KEY} = process.env
 const axios = require('axios')
-// const data = require('../utils/foodComplexSearch.json')
 const {Tbl_diet} = require('../db')
 
 const getDiet = async ()=>{

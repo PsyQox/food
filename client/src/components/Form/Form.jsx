@@ -86,7 +86,7 @@ const Form = ()=>{
 
     return(
         <div className={style.containerForm}>
-            <h1 className={style.title}>Form</h1>
+            <h1 className={style.title}>Form</h1> 
             <form className={style.form} action="" onSubmit={handleForm}>
                 <label className={style.label} htmlFor="">Name</label> 
                 <input className={style.inputText} type="text" name="title" onChange={handleInput} value={form.title}/>

@@ -10,7 +10,7 @@ const Home = ()=>{
 
     const [select, setSelect] = useState("def")
     const [currentPage, setCurrentPage] = useState(1);
-    const [recipesPerPage] = useState(9);
+    const [recipesPerPage] = useState(10);
     const dispatch = useDispatch()
     const recipes = useSelector(state => state.recipes)
     const diets = useSelector(state => state.diets)
@@ -31,9 +31,9 @@ const Home = ()=>{
         }
     },[])
 
-    const numberOfLastPage = currentPage * recipesPerPage;
-    const numberOfFirstPage = numberOfLastPage - recipesPerPage;
-    const currentRecipes = recipes.slice(numberOfFirstPage, numberOfLastPage)
+    const numberOfLastPosition = currentPage * recipesPerPage; //10
+    const numberOfFirstPosition = numberOfLastPosition - recipesPerPage;//10 = 0
+    const currentRecipes = recipes.slice(numberOfFirstPosition, numberOfLastPosition)
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber)
 

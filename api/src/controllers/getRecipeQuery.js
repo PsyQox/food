@@ -1,8 +1,6 @@
 require('dotenv').config();
 const axios = require('axios');
 const {API_KEY} = process.env;
-// const data = require('../utils/foodSearch.json')
-// const data = require('../utils/foodComplexSearch.json')
 const {Tbl_recipe,Tbl_diet} = require('../db')
 const {Op} = require('sequelize')
 

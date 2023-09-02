@@ -19,7 +19,7 @@ const Home = ()=>{
     useEffect(()=>{ 
         try {
             dispatch(getDiets()) 
-            if (!search) {
+            if (!search) { 
                 dispatch(getRecipes())            
             }
         } catch (error) {
